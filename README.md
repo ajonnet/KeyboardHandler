@@ -3,6 +3,8 @@ KeyboardHandler
 
 This open-source library lets you deal with complexity of handling Mulitple InputFields with minimal code setup.  
 
+![Multiple Input Items and Keyboard Hanlding](/InfoPic.jpg)
+
 While designing a UI, which contains a number of Input Elements (which requires keyboard to pop-up) leads a number of aspects to be handled. Handling those apsects also leads to clutter of code whcich has no logical aspect of the project and are required to be repeated whenever we encouter a similar situation. So, here is this library which aims to handle all those aspects for you and let you go ahead whith your project with minimal code.  
 
 Following aspects has been considered while working with multiple Input Elements  
