@@ -1,9 +1,9 @@
 //
 //  KeyboardHandler.h
-//  ForEverFreeApps
+//  Keyboard Handler
 //
-//  Created by IBCMobile on 25/04/13.
-//  Copyright (c) 2013 IBCMobile. All rights reserved.
+//  Created by Amit Jain on 25/04/13.
+//  Copyright (c) 2013 ajonnet. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
