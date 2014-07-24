@@ -46,7 +46,7 @@
     self = [super init];
     if (self) {
         self->keyboardHasAppeard = NO;
-        self->_showNavigationToolbar = YES;
+        self->_showNavigationAccessory = YES;
     }
     return self;
 }
