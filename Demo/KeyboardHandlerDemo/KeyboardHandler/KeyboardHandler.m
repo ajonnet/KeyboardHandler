@@ -60,21 +60,8 @@
     _inputItems = nil;
     _inputItems = inputItems;
     
-    //Register keyboard AccessoryView for the inputItems
+    //Register Notifications for the inputItems
     for (UITextField *tf in inputItems) {
-
-        //Assigning Keyboard accessory
-        if(_showNavigationAccessory && (inputItems.count > 1)) {
-            
-            //LazyLoading of Keyboard AccessoryView
-            if (nil == keybAccessory) {
-                [self loadKeybAccessoryToolBar];
-            }
-        
-            tf.inputAccessoryView = keybAccessory;
-        }
-        
-        
         
         //Register for Notifications
         if ([tf isKindOfClass:[UITextView class]]) {
@@ -85,6 +72,9 @@
             [self registerForUITextFieldNotificationsForTextField:tf];
         }
     }
+    
+    //Render Navigation AccessoryView for Input Items
+    [self renderNavigationAccessoryViewForInputItems:inputItems asEnabled:_showNavigationAccessory];
 }
 
 -(void)setHostingSCVW:(UIScrollView *)hostingSCVW{
@@ -100,6 +90,22 @@
     [self.hostingSCVW addGestureRecognizer:singleTap];
 }
 
+-(void)setShowNavigationAccessory:(BOOL)showNavigationAccessory
+{
+    if (_showNavigationAccessory == showNavigationAccessory) {
+        return;
+    }
+    
+    _showNavigationAccessory = showNavigationAccessory;
+    
+    //Return if No Input Items set
+    if (nil == _inputItems || _inputItems.count == 0) {
+        return;
+    }
+    
+    //Render Navigation AccessoryV for Input Items
+    [self renderNavigationAccessoryViewForInputItems:_inputItems asEnabled:_showNavigationAccessory];
+}
 
 #pragma mark UIGestureRecognizerDelegate methods
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
@@ -318,5 +324,28 @@
 
 -(void)endEditing{
     [self.hostingSCVW endEditing:YES];
+}
+
+-(void) renderNavigationAccessoryViewForInputItems:(NSArray *) inputItems asEnabled:(BOOL) enabled
+{
+    //Assigning Keyboard accessory View
+    if(enabled && (inputItems.count > 1)) { //Enable
+        
+        for (UITextField *tf in inputItems) {
+            
+            //LazyLoading of Keyboard AccessoryView
+            if (nil == keybAccessory) {
+                [self loadKeybAccessoryToolBar];
+            }
+            
+            tf.inputAccessoryView = keybAccessory;
+        }
+        
+    }else { //Disable
+        
+        for (UITextField *tf in inputItems) {
+            tf.inputAccessoryView = nil;
+        }
+    }
 }
 @end

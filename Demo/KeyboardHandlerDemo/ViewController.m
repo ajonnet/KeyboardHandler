@@ -14,6 +14,7 @@
     KeyboardHandler *keybHandler;
 }
 
+@property (weak, nonatomic) IBOutlet UISwitch *accessorySwitch;
 @end
 
 @implementation ViewController
@@ -34,12 +35,19 @@
 {
     //configuring the scrollView
     self.scvw.contentSize = self.scvwContentView.bounds.size;
+    
+    keybHandler.showNavigationAccessory = self.accessorySwitch.isOn;
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)onAccessoryVSwitchValChanged:(UISwitch *)sender {
+
+    keybHandler.showNavigationAccessory = sender.isOn;
 }
 
 @end
