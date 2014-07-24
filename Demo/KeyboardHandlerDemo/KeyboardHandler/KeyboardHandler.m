@@ -45,7 +45,8 @@
 {
     self = [super init];
     if (self) {
-        keyboardHasAppeard = NO;
+        self->keyboardHasAppeard = NO;
+        self->_showNavigationToolbar = YES;
     }
     return self;
 }
@@ -59,14 +60,21 @@
     _inputItems = nil;
     _inputItems = inputItems;
     
-    //LazyLoading of Keyboard AccessoryView
-    if (nil == keybAccessory) { 
-        [self loadKeybAccessoryToolBar];
-    }
-    
     //Register keyboard AccessoryView for the inputItems
     for (UITextField *tf in inputItems) {
-        tf.inputAccessoryView = keybAccessory;
+
+        //Assigning Keyboard accessory
+        if(_showNavigationAccessory && (inputItems.count > 1)) {
+            
+            //LazyLoading of Keyboard AccessoryView
+            if (nil == keybAccessory) {
+                [self loadKeybAccessoryToolBar];
+            }
+        
+            tf.inputAccessoryView = keybAccessory;
+        }
+        
+        
         
         //Register for Notifications
         if ([tf isKindOfClass:[UITextView class]]) {

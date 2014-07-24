@@ -12,4 +12,5 @@
 
 @property (nonatomic,strong) NSArray *inputItems;
 @property (nonatomic,strong) UIScrollView *hostingSCVW;
+@property (nonatomic, readwrite) BOOL showNavigationAccessory;
 @end
