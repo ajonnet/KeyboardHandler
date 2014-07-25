@@ -58,10 +58,29 @@
 #pragma mark properties setters and getters methods
 -(void)setInputItems:(NSArray *)inputItems{
     _inputItems = nil;
-    _inputItems = inputItems;
+    
+    //Sort the input Items in XY Space from Top to bottom and Left to Right
+    NSArray *sortedInputItems = [inputItems sortedArrayUsingComparator:^NSComparisonResult(UIView *obj1, UIView *obj2) {
+        NSComparisonResult result = NSOrderedAscending;
+        
+        if (obj1.frame.origin.y >= obj2.frame.origin.y) {
+            if (obj1.frame.origin.y == obj2.frame.origin.y) {
+                if (obj1.frame.origin.x >= obj2.frame.origin.x) {
+                    result = NSOrderedDescending;
+                }else {
+                    result = NSOrderedAscending;
+                }
+            }else {
+                result = NSOrderedDescending;
+            }
+        }
+        
+        return result;
+    }];
+    _inputItems = sortedInputItems;
     
     //Register Notifications for the inputItems
-    for (UITextField *tf in inputItems) {
+    for (UITextField *tf in _inputItems) {
         
         //Register for Notifications
         if ([tf isKindOfClass:[UITextView class]]) {
@@ -74,7 +93,7 @@
     }
     
     //Render Navigation AccessoryView for Input Items
-    [self renderNavigationAccessoryViewForInputItems:inputItems asEnabled:_showNavigationAccessory];
+    [self renderNavigationAccessoryViewForInputItems:_inputItems asEnabled:_showNavigationAccessory];
 }
 
 -(void)setHostingSCVW:(UIScrollView *)hostingSCVW{
