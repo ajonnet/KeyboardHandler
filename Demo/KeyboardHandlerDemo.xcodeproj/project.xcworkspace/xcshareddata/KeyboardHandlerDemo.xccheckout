@@ -5,7 +5,7 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>20F9D4FA-7B12-42F7-AE73-9385A4798183</string>
+	<string>BF6B17F3-4F48-4A20-902A-9DB5A27C3EA1</string>
 	<key>IDESourceControlProjectName</key>
 	<string>KeyboardHandlerDemo</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
@@ -14,7 +14,7 @@
 		<string>https://github.com/ajonnet/KeyboardHandler.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>KeyboardHandlerDemo/KeyboardHandlerDemo.xcodeproj/project.xcworkspace</string>
+	<string>Demo/KeyboardHandlerDemo.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>448CF7FD-7976-4C9B-A835-930034A4232C</key>
