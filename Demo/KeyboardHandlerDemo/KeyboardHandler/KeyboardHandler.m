@@ -94,6 +94,12 @@
     
     //Render Navigation AccessoryView for Input Items
     [self renderNavigationAccessoryViewForInputItems:_inputItems asEnabled:_showNavigationAccessory];
+    
+
+    //Detecting the nearest SCVW which can act as HostingSCVW for all Input Items
+    if (!self.hostingSCVW) {
+        self.hostingSCVW = [self getNearestHostingSCVWForInputItems:_inputItems];
+    }
 }
 
 -(void)setHostingSCVW:(UIScrollView *)hostingSCVW{
@@ -366,5 +372,56 @@
             tf.inputAccessoryView = nil;
         }
     }
+}
+
+-(UIScrollView *) getNearestHostingSCVWForInputItems:(NSArray *) inputItems
+{
+    
+    //Block to look Up TargetView Heirarchy if it contains the the cadidateView
+    __block BOOL (^existInViewHeirarchy)(id,id);
+    existInViewHeirarchy = ^(UIView *targetV, UIView *candidateV){
+        //Seraching In Breadth First
+        for (UIView *subV in targetV.subviews) {
+            if ([candidateV isEqual:subV]) {
+                return YES;
+            }
+        }
+        
+        //Searching in Depth
+        for (UIView *subV in targetV.subviews) {
+            UIView *newTargetView = subV;
+            if (YES == existInViewHeirarchy(newTargetView, candidateV)) {
+                return YES;
+            }
+        }
+        
+        return NO;
+    };
+    
+    //Looking up for Hosting SCVW
+    UIScrollView *hostSCVW = inputItems[0];
+    while (hostSCVW.superview != nil) {
+        BOOL hostSCVWFound = NO;
+        
+        if ([hostSCVW isKindOfClass:[UIScrollView class]]) {
+            hostSCVWFound = YES;
+            
+            //Checking if all Input Views can be treated as subViews of the considered HostingSCVW
+            for (UIView *inputV in _inputItems) {
+                if (!existInViewHeirarchy(hostSCVW,inputV)) {
+                    hostSCVWFound = NO;
+                    break;
+                }
+            }
+        }
+        
+        if (hostSCVWFound) { //Found
+            break;
+        }else { //Not Found
+            hostSCVW = (UIScrollView *)hostSCVW.superview;
+        }
+    }
+    
+    return hostSCVW;
 }
 @end

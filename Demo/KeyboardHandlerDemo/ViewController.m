@@ -27,7 +27,7 @@
     //Initializing Keyboard handler
     keybHandler = [[KeyboardHandler alloc] init];
     keybHandler.inputItems = self.InputItemsArr;
-    keybHandler.hostingSCVW = self.scvw;
+    //keybHandler.hostingSCVW = self.scvw;
     
 }
 
